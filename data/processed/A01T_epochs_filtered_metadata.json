@@ -1,0 +1,101 @@
+{
+  "dataset_name": "BCI Competition IV Dataset 2a",
+  "subject_id": "A01",
+  "session": "T (Training)",
+  "source_raw_npz": "A01T_epochs.npz",
+  "sfreq": 250.0,
+  "n_epochs": 288,
+  "n_channels": 22,
+  "n_times": 1000,
+  "channel_names": [
+    "EEG-Fz",
+    "EEG-0",
+    "EEG-1",
+    "EEG-2",
+    "EEG-3",
+    "EEG-4",
+    "EEG-5",
+    "EEG-C3",
+    "EEG-6",
+    "EEG-Cz",
+    "EEG-7",
+    "EEG-C4",
+    "EEG-8",
+    "EEG-9",
+    "EEG-10",
+    "EEG-11",
+    "EEG-12",
+    "EEG-13",
+    "EEG-14",
+    "EEG-Pz",
+    "EEG-15",
+    "EEG-16"
+  ],
+  "filter": {
+    "type": "Butterworth IIR bandpass",
+    "order": 4,
+    "effective_order": 8,
+    "l_freq": 8.0,
+    "h_freq": 30.0,
+    "phase": "zero-phase (filtfilt)",
+    "causality": "non-causal (offline only; causal filter required for real-time streaming)",
+    "padding": "gustafsson reflection padding"
+  },
+  "artifact_policy": {
+    "policy": "Preserve all 288 trials; provide explicit artifact mask and clean indices",
+    "coincident_code_1023_trials": [
+      21,
+      45,
+      52,
+      56,
+      67,
+      94,
+      97,
+      98,
+      104,
+      191,
+      214,
+      229,
+      254,
+      276,
+      287
+    ],
+    "artifact_count": 15,
+    "clean_count": 273,
+    "class_counts_all": {
+      "0": 72,
+      "1": 72,
+      "2": 72,
+      "3": 72
+    },
+    "class_counts_clean": {
+      "0": 69,
+      "1": 69,
+      "2": 68,
+      "3": 67
+    }
+  },
+  "signal_stats_uV": {
+    "raw": {
+      "mean": 0.3694940507411957,
+      "std": 10.187522888183594,
+      "min": -76.513671875,
+      "max": 99.951171875,
+      "ptp_mean": 62.73278045654297
+    },
+    "filtered": {
+      "mean": -0.0003576780168044719,
+      "std": 4.889238813004977,
+      "min": -42.30199471613164,
+      "max": 40.47198781361616,
+      "ptp_mean": 30.80414356279504
+    }
+  },
+  "spectral_attenuation": {
+    "low_band_attenuation_pct": 99.80431447117573,
+    "high_band_attenuation_pct": 98.98252618119102,
+    "passband_power_uV2": 23.20696679985597
+  },
+  "dtype": "float32",
+  "data_units": "Volts (SI)"
+}

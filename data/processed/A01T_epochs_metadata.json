@@ -1,0 +1,82 @@
+{
+  "dataset_name": "BCI Competition IV Dataset 2a",
+  "subject_id": "A01",
+  "session": "T (Training)",
+  "source_file": "C:\\Users\\giris\\Desktop\\Sem5\\MINI_Project\\Motor Imagery EEG_Classifier\\data\\raw\\A01T.gdf",
+  "sfreq": 250.0,
+  "tmin": 0.0,
+  "tmax": 3.996,
+  "duration_seconds": 4.0,
+  "n_samples_per_epoch": 1000,
+  "n_epochs": 288,
+  "n_channels": 22,
+  "channel_names": [
+    "EEG-Fz",
+    "EEG-0",
+    "EEG-1",
+    "EEG-2",
+    "EEG-3",
+    "EEG-4",
+    "EEG-5",
+    "EEG-C3",
+    "EEG-6",
+    "EEG-Cz",
+    "EEG-7",
+    "EEG-C4",
+    "EEG-8",
+    "EEG-9",
+    "EEG-10",
+    "EEG-11",
+    "EEG-12",
+    "EEG-13",
+    "EEG-14",
+    "EEG-Pz",
+    "EEG-15",
+    "EEG-16"
+  ],
+  "excluded_channels": [
+    "EOG-left",
+    "EOG-central",
+    "EOG-right"
+  ],
+  "event_mapping": {
+    "769": 0,
+    "770": 1,
+    "771": 2,
+    "772": 3
+  },
+  "class_names": {
+    "0": "Left Hand",
+    "1": "Right Hand",
+    "2": "Both Feet",
+    "3": "Tongue"
+  },
+  "class_counts": {
+    "0": 72,
+    "1": 72,
+    "2": 72,
+    "3": 72
+  },
+  "requested_epochs": 288,
+  "retained_epochs": 288,
+  "dropped_epochs": 0,
+  "data_units": "Volts (SI)",
+  "dtype": "float32",
+  "coincident_code_1023_trials": [
+    21,
+    45,
+    52,
+    56,
+    67,
+    94,
+    97,
+    98,
+    104,
+    191,
+    214,
+    229,
+    254,
+    276,
+    287
+  ]
+}
