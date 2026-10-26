@@ -1,0 +1,82 @@
+{
+  "dataset_name": "BCI Competition IV Dataset 2a",
+  "subject_id": "A07",
+  "session": "T (Training)",
+  "source_file": "A07T.gdf",
+  "sfreq": 250.0,
+  "tmin": 0.0,
+  "tmax": 3.996,
+  "duration_seconds": 4.0,
+  "n_samples_per_epoch": 1000,
+  "n_epochs": 288,
+  "n_channels": 22,
+  "channel_names": [
+    "EEG-Fz",
+    "EEG-0",
+    "EEG-1",
+    "EEG-2",
+    "EEG-3",
+    "EEG-4",
+    "EEG-5",
+    "EEG-C3",
+    "EEG-6",
+    "EEG-Cz",
+    "EEG-7",
+    "EEG-C4",
+    "EEG-8",
+    "EEG-9",
+    "EEG-10",
+    "EEG-11",
+    "EEG-12",
+    "EEG-13",
+    "EEG-14",
+    "EEG-Pz",
+    "EEG-15",
+    "EEG-16"
+  ],
+  "excluded_channels": [
+    "EOG-left",
+    "EOG-central",
+    "EOG-right"
+  ],
+  "event_mapping": {
+    "769": 0,
+    "770": 1,
+    "771": 2,
+    "772": 3
+  },
+  "class_names": {
+    "0": "Left Hand",
+    "1": "Right Hand",
+    "2": "Both Feet",
+    "3": "Tongue"
+  },
+  "class_counts": {
+    "0": 72,
+    "1": 72,
+    "2": 72,
+    "3": 72
+  },
+  "coincident_code_1023_trials": [
+    29,
+    36,
+    43,
+    54,
+    65,
+    80,
+    83,
+    106,
+    109,
+    110,
+    133,
+    145,
+    160,
+    169,
+    189,
+    194,
+    218
+  ],
+  "artifact_policy_note": "All trials retained; artifact flags are supplied separately in filtered NPZ.",
+  "data_units": "Volts (SI)",
+  "dtype": "float32"
+}

@@ -1,0 +1,137 @@
+{
+  "dataset_name": "BCI Competition IV Dataset 2a",
+  "subjects": [
+    "A01",
+    "A02",
+    "A03",
+    "A04",
+    "A05",
+    "A06",
+    "A07",
+    "A08",
+    "A09"
+  ],
+  "sessions_included": "Training sessions A01T-A09T only",
+  "evaluation_sessions_included": false,
+  "total_epochs": 2592,
+  "shape_all": [
+    2592,
+    22,
+    1000
+  ],
+  "class_names": {
+    "0": "Left Hand",
+    "1": "Right Hand",
+    "2": "Both Feet",
+    "3": "Tongue"
+  },
+  "class_counts_all": {
+    "0": 648,
+    "1": 648,
+    "2": 648,
+    "3": 648
+  },
+  "split_policy": "Stratified 75/12.5/12.5 by subject-and-class; random_state=42",
+  "split_counts": {
+    "train": 1944,
+    "val": 324,
+    "test": 324
+  },
+  "class_counts": {
+    "train": {
+      "0": 486,
+      "1": 486,
+      "2": 486,
+      "3": 486
+    },
+    "val": {
+      "0": 81,
+      "1": 81,
+      "2": 81,
+      "3": 81
+    },
+    "test": {
+      "0": 81,
+      "1": 81,
+      "2": 81,
+      "3": 81
+    }
+  },
+  "subject_counts": {
+    "train": {
+      "A01": 216,
+      "A02": 216,
+      "A03": 216,
+      "A04": 216,
+      "A05": 216,
+      "A06": 216,
+      "A07": 216,
+      "A08": 216,
+      "A09": 216
+    },
+    "val": {
+      "A01": 36,
+      "A02": 36,
+      "A03": 36,
+      "A04": 36,
+      "A05": 36,
+      "A06": 36,
+      "A07": 36,
+      "A08": 36,
+      "A09": 36
+    },
+    "test": {
+      "A01": 36,
+      "A02": 36,
+      "A03": 36,
+      "A04": 36,
+      "A05": 36,
+      "A06": 36,
+      "A07": 36,
+      "A08": 36,
+      "A09": 36
+    }
+  },
+  "artifact_counts": {
+    "all": 264,
+    "train": 188,
+    "val": 38,
+    "test": 38
+  },
+  "normalization": "Per-channel z-score fitted only on pooled training trials; same frozen parameters applied to val/test",
+  "central_window_samples": [
+    125,
+    875
+  ],
+  "central_window_seconds": [
+    0.5,
+    3.5
+  ],
+  "channels": [
+    "EEG-Fz",
+    "EEG-0",
+    "EEG-1",
+    "EEG-2",
+    "EEG-3",
+    "EEG-4",
+    "EEG-5",
+    "EEG-C3",
+    "EEG-6",
+    "EEG-Cz",
+    "EEG-7",
+    "EEG-C4",
+    "EEG-8",
+    "EEG-9",
+    "EEG-10",
+    "EEG-11",
+    "EEG-12",
+    "EEG-13",
+    "EEG-14",
+    "EEG-Pz",
+    "EEG-15",
+    "EEG-16"
+  ],
+  "dtype": "float32",
+  "units": "Volts (SI)",
+  "note": "This is within-subject trial-level evaluation, not leave-one-subject-out evaluation."
+}
