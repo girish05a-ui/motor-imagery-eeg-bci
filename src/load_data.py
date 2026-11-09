@@ -29,6 +29,18 @@ CLASS_MAPPING = {
     3: "Tongue"
 }
 
+DATASET_ARCHIVES = {
+    'a01': 'A01T_split_data.npz',
+    'pooled': 'A01-A09T_pooled_split_data.npz',
+    'cross_subject': 'A01-A07T_dev_A08-A09T_test_cross_subject_data.npz',
+}
+
+DATASET_METADATA = {
+    'a01': 'A01T_split_metadata.json',
+    'pooled': 'A01-A09T_pooled_split_metadata.json',
+    'cross_subject': 'A01-A07T_dev_A08-A09T_test_cross_subject_metadata.json',
+}
+
 EVENT_CODE_MAPPING = {
     769: 0,
     770: 1,
@@ -54,10 +66,18 @@ def _get_processed_dir(data_dir: Optional[str] = None) -> Path:
     raise FileNotFoundError("Could not locate 'data/processed' directory. Please specify data_dir explicitly.")
 
 
-def load_metadata(data_dir: Optional[str] = None) -> Dict[str, Any]:
-    """Load the Part 5 split metadata JSON dictionary."""
+def _dataset_paths(dataset: str, data_dir: Optional[str] = None) -> Tuple[Path, Path]:
+    """Return archive and metadata paths for a supported immutable dataset artifact."""
+    dataset = dataset.lower()
+    if dataset not in DATASET_ARCHIVES:
+        raise ValueError(f"Invalid dataset '{dataset}'. Expected one of {sorted(DATASET_ARCHIVES)}.")
     proc_dir = _get_processed_dir(data_dir)
-    meta_path = proc_dir / "A01T_split_metadata.json"
+    return proc_dir / DATASET_ARCHIVES[dataset], proc_dir / DATASET_METADATA[dataset]
+
+
+def load_metadata(data_dir: Optional[str] = None, dataset: str = 'a01') -> Dict[str, Any]:
+    """Load metadata for ``a01``, ``pooled``, or ``cross_subject`` data."""
+    _, meta_path = _dataset_paths(dataset, data_dir)
     if not meta_path.exists():
         raise FileNotFoundError(f"Metadata file not found: {meta_path}")
     with open(meta_path, 'r', encoding='utf-8') as f:
@@ -70,7 +90,8 @@ def load_split_data(
     window: str = 'full',
     clean_only: bool = False,
     return_mask: bool = True,
-    data_dir: Optional[str] = None
+    data_dir: Optional[str] = None,
+    dataset: str = 'a01',
 ) -> Tuple[np.ndarray, ...]:
     """
     Load preprocessed EEG trials, labels, and artifact masks for Person 2 modeling.
@@ -101,6 +122,9 @@ def load_split_data(
         - False: Returns (X, y)
     data_dir : str, optional
         Custom path to data/processed directory. Auto-resolved if None.
+    dataset : {'a01', 'pooled', 'cross_subject'}, default='a01'
+        Selects the legacy A01 archive, the preserved within-subject pooled
+        archive, or the separately generated A01-A07/A08-A09 archive.
 
     Returns
     -------
@@ -119,44 +143,26 @@ def load_split_data(
     if window not in ['full', 'central']:
         raise ValueError(f"Invalid window '{window}'. Expected 'full' (1000 samples) or 'central' (750 samples).")
 
-    proc_dir = _get_processed_dir(data_dir)
-    npz_path = proc_dir / "A01T_split_data.npz"
+    npz_path, _ = _dataset_paths(dataset, data_dir)
     if not npz_path.exists():
         raise FileNotFoundError(f"Processed split archive not found: {npz_path}")
 
-    archive = np.load(npz_path)
-
-    if mode == 'all':
-        # Concatenate train, val, test
-        parts = ['train', 'val', 'test']
-    else:
-        parts = [mode]
-
+    parts = ['train', 'val', 'test'] if mode == 'all' else [mode]
     X_list, y_list, mask_list = [], [], []
-
-    for part in parts:
-        # Construct key name based on normalization and window
-        if normalized:
-            key_x = f"X_{part}_norm_windowed" if window == 'central' else f"X_{part}_norm"
-        else:
-            key_x = f"X_{part}_windowed" if window == 'central' else f"X_{part}"
-
-        key_y = f"y_{part}"
-        key_mask = f"artifact_mask_{part}"
-
-        X_part = archive[key_x]
-        y_part = archive[key_y]
-        mask_part = archive[key_mask]
-
-        if clean_only:
-            keep = ~mask_part
-            X_part = X_part[keep]
-            y_part = y_part[keep]
-            mask_part = mask_part[keep]
-
-        X_list.append(X_part)
-        y_list.append(y_part)
-        mask_list.append(mask_part)
+    with np.load(npz_path, allow_pickle=False) as archive:
+        for part in parts:
+            key_x = f"X_{part}_norm_windowed" if normalized and window == 'central' else (
+                f"X_{part}_norm" if normalized else f"X_{part}_windowed" if window == 'central' else f"X_{part}"
+            )
+            X_part = archive[key_x]
+            y_part = archive[f"y_{part}"]
+            mask_part = archive[f"artifact_mask_{part}"]
+            if clean_only:
+                keep = ~mask_part
+                X_part, y_part, mask_part = X_part[keep], y_part[keep], mask_part[keep]
+            X_list.append(X_part)
+            y_list.append(y_part)
+            mask_list.append(mask_part)
 
     X_out = np.concatenate(X_list, axis=0) if len(X_list) > 1 else X_list[0]
     y_out = np.concatenate(y_list, axis=0) if len(y_list) > 1 else y_list[0]
@@ -172,12 +178,11 @@ def load_split_data(
     return X_out, y_out
 
 
-def get_channel_names(data_dir: Optional[str] = None) -> list:
+def get_channel_names(data_dir: Optional[str] = None, dataset: str = 'a01') -> list:
     """Return ordered list of 22 scalp EEG channel names."""
-    proc_dir = _get_processed_dir(data_dir)
-    npz_path = proc_dir / "A01T_split_data.npz"
-    archive = np.load(npz_path)
-    return archive['channel_names'].tolist()
+    npz_path, _ = _dataset_paths(dataset, data_dir)
+    with np.load(npz_path, allow_pickle=False) as archive:
+        return archive['channel_names'].tolist()
 
 
 def get_class_names() -> Dict[int, str]:

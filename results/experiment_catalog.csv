@@ -1,0 +1,9 @@
+experiment_id,role,protocol,input_shape,normalization,temporal_filters,depth_multiplier,dropout,normalization_layer,learning_rate,weight_decay,label_smoothing,lr_scheduler,epochs_completed,best_epoch,best_val_accuracy,best_val_macro_f1,held_out_test_evaluated,held_out_test_accuracy,held_out_test_macro_f1,status
+eegnet_cross_subject_baseline_seed42,selected_baseline,A01-A07 development; A08-A09 one-time held-out test,"(N,1,22,750)",per-channel z-score fit on A01-A07 train,8,2,0.50,BatchNorm,0.001,0.0001,0,none,134,114,0.519841,0.517995,yes,0.560764,0.552870,selected
+eegnet_tune_c1_f16_d2,validation_only,A01-A07 validation only,"(N,1,22,750)",same frozen training statistics,16,2,0.50,BatchNorm,0.001,0.0001,0,none,65,45,0.466270,0.463580,no,,,rejected
+eegnet_tune_c2_dropout025,validation_only,A01-A07 validation only,"(N,1,22,750)",same frozen training statistics,8,2,0.25,BatchNorm,0.001,0.0001,0,none,50,30,0.470238,0.463802,no,,,rejected
+eegnet_tune_c3_lr5e4,validation_only,A01-A07 validation only,"(N,1,22,750)",same frozen training statistics,8,2,0.50,BatchNorm,0.0005,0.0001,0,none,108,88,0.484127,0.480497,no,,,rejected
+eegnet_tune_c4_d1,validation_only,A01-A07 validation only,"(N,1,22,750)",same frozen training statistics,8,1,0.50,BatchNorm,0.001,0.0001,0,none,61,41,0.460317,0.448312,no,,,rejected
+eegnet_tune_c5_plateau_scheduler,validation_only,A01-A07 validation only,"(N,1,22,750)",same frozen training statistics,8,2,0.50,BatchNorm,0.001,0.0001,0,ReduceLROnPlateau factor=0.5 patience=8,148,118,0.500000,0.497763,no,,,rejected
+eegnet_tune_c6_labelsmooth005,validation_only,A01-A07 validation only,"(N,1,22,750)",same frozen training statistics,8,2,0.50,BatchNorm,0.001,0.0001,0.05,none,115,95,0.503968,0.499798,no,,,rejected
+eegnet_tune_c7_groupnorm,validation_only,A01-A07 validation only,"(N,1,22,750)",same frozen training statistics,8,2,0.50,GroupNorm,0.001,0.0001,0,none,66,46,0.420635,0.413799,no,,,rejected

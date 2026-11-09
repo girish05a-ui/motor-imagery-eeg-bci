@@ -1,0 +1,9 @@
+experiment_id,split_protocol,temporal_filters,depth_multiplier,dropout,learning_rate,weight_decay,epochs_completed,best_validation_epoch,best_validation_accuracy,best_validation_macro_f1,test_evaluated,test_macro_f1,status
+eegnet_cross_subject_baseline_seed42,A01-A07 development; A08-A09 final held-out,8,2,0.50,0.001,0.0001,134,114,0.519841,0.517995,yes,0.552870,completed
+eegnet_tune_c1_f16_d2,A01-A07 validation-only,16,2,0.50,0.001,0.0001,65,45,0.466270,0.463580,no,,rejected_worse_than_baseline
+eegnet_tune_c2_dropout025,A01-A07 validation-only,8,2,0.25,0.001,0.0001,50,30,0.470238,0.463802,no,,rejected_worse_than_baseline
+eegnet_tune_c3_lr5e4,A01-A07 validation-only,8,2,0.50,0.0005,0.0001,108,88,0.484127,0.480497,no,,rejected_worse_than_baseline
+eegnet_tune_c4_d1,A01-A07 validation-only,8,1,0.50,0.001,0.0001,61,41,0.460317,0.448312,no,,rejected_worse_than_baseline
+eegnet_tune_c5_plateau_scheduler,A01-A07 validation-only,8,2,0.50,0.001,0.0001,148,118,0.500000,0.497763,no,,rejected_worse_than_baseline
+eegnet_tune_c6_labelsmooth005,A01-A07 validation-only,8,2,0.50,0.001,0.0001,115,95,0.503968,0.499798,no,,rejected_worse_than_baseline
+eegnet_tune_c7_groupnorm,A01-A07 validation-only,8,2,0.50,0.001,0.0001,66,46,0.420635,0.413799,no,,rejected_worse_than_baseline
