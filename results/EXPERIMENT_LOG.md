@@ -81,3 +81,10 @@
 - Created `results/selected_eegnet_baseline/` as the stable application-integration bundle. It contains the selected best-validation checkpoint renamed to `model_weights.pt`, config, authoritative metrics, held-out predictions, history, and an inference README. Bundle smoke test passed: checkpoint epoch 114 loaded into default BatchNorm EEGNet and produced finite `(1, 4)` logits. SHA-256: `273DA47614592FDC47E26981E9AC8AEF5E1D873AD63B6AC38832AE396F6EF12A`.
 - Audited repository structure. Retained all source scripts, notebooks, data, metrics, checkpoints, and figures. Removed only generated Python `__pycache__` directories and seven verified zero-byte temporary logs. No experiment evidence or model/data artifact was removed.
 - Stage 5 remains pending explicit approval; no CNN+LSTM implementation or training has begun.
+
+## 2026-11-23 — Git synchronization of preserved EEGNet experiment artifacts
+
+- Read-only Git audit confirmed branch `eegnet-cross-subject-baseline` was synchronized with `origin/eegnet-cross-subject-baseline` at commit `e7c704e` before this change. No tracked files were modified.
+- Approved synchronization scope: the complete raw result directories for the selected cross-subject EEGNet baseline and validation-only candidates C1–C7, plus `data/processed/A01-A07T_dev_A08-A09T_test_cross_subject_metadata.json`.
+- Explicitly excluded: `data/processed/A01-A07T_dev_A08-A09T_test_cross_subject_data.npz` (741 MB derived archive retained locally), the zero-byte `results/cross_subject_generation.out.log`, caches, raw recordings, and machine/environment files. The archive is protected by the repository Git-LFS rule but is intentionally not part of this synchronization.
+- Staged review verified all eight run directories and their configurations, JSON/JSONL histories, metrics, best/last checkpoints, and the baseline held-out predictions. Commit `7d614ef` (`Preserve EEGNet tuning experiment artifacts`) contains 51 files: the metadata file, this log update, and 49 experiment-artifact files.
